@@ -28,6 +28,11 @@ public class Programa {
 		}
 	
 	
+		System.out.println("\n--- Teste número 3: encontrarTodos ---");
+		list = vendedorDAO.encontrarTodos();
+		for (Vendedor obj : list) {
+			System.out.println(obj);
+		}
 	}
 
 }
