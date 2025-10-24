@@ -38,7 +38,7 @@ public class VendedorDAOJDBC implements VendedorDAO {
 		// TODO Auto-generated method stub
 		
 	}
-
+ 
 	@Override
 	public Vendedor encontrarPorId(Integer id) {
 	    PreparedStatement st = null;
@@ -56,18 +56,9 @@ public class VendedorDAOJDBC implements VendedorDAO {
 	        rs = st.executeQuery();
 	        
 	        if (rs.next()) {
-	            Departamento dep = new Departamento();
-	            dep.setId(rs.getInt("DepartmentId"));
-	            dep.setNome(rs.getString("DepName"));
+	            Departamento dep = instantieteDepartamento(rs);
 	            
-	            Vendedor obj = new Vendedor();
-	            obj.setId(rs.getInt("Id"));
-	            obj.setNome(rs.getString("Name"));
-	            obj.setEmail(rs.getString("Email"));
-	            obj.setSalariobase(rs.getDouble("BaseSalary"));
-	            obj.setDataDeNascimento(rs.getDate("BirthDate"));
-	            obj.setDepartamento(dep);
-	            
+	            Vendedor obj = instantieteVendedor(rs, dep);	            
 	            return obj;
 	        }
 	        return null;
@@ -80,6 +71,28 @@ public class VendedorDAOJDBC implements VendedorDAO {
 	    }
 	}
 
+
+	private Vendedor instantieteVendedor(ResultSet rs, Departamento dep) throws SQLException {
+		Vendedor obj = new Vendedor();
+        obj.setId(rs.getInt("Id"));
+        obj.setNome(rs.getString("Name"));
+        obj.setEmail(rs.getString("Email"));
+        obj.setSalariobase(rs.getDouble("BaseSalary"));
+        obj.setDataDeNascimento(rs.getDate("BirthDate"));
+        obj.setDepartamento(dep);
+        
+        return obj;
+
+	}
+
+	private Departamento instantieteDepartamento(ResultSet rs) throws SQLException {
+		Departamento dep = new Departamento();
+        dep.setId(rs.getInt("DepartmentId"));
+        dep.setNome(rs.getString("DepName"));
+		return dep;
+	}
+	
+	
 
 	@Override
 	public List<Vendedor> encontrarTodos() {
