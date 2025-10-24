@@ -1,7 +1,10 @@
 package application;
 
+import java.util.List;
+
 import model.dao.DAOFactory;
 import model.dao.VendedorDAO;
+import model.entities.Departamento;
 import model.entities.Vendedor;
 
 public class Programa {
@@ -17,8 +20,14 @@ public class Programa {
 		
 		System.out.println(vendedor);
 		
-		
-		
+		System.out.println("\n--- Teste número 2: encontrarPorDepartamento ---");
+		Departamento departamento = new Departamento(2, null);
+		List<Vendedor> list = vendedorDAO.encontrarPorDepartamento(departamento);
+		for (Vendedor obj : list) {
+			System.out.println(obj);
+		}
+	
+	
 	}
 
 }
